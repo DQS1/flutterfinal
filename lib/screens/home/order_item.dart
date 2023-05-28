@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutterfinal/models/bookingmodel.dart';
 import 'package:flutterfinal/screens/order_detail/order_detail.dart';
@@ -14,7 +16,8 @@ class OrderItem extends StatefulWidget {
 }
 
 class _OrderItemState extends State<OrderItem> {
-  void _showCancelConfirmationDialog() {
+  Future<bool> _showCancelConfirmationDialog() {
+    Completer<bool> completer = Completer<bool>();
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -24,17 +27,16 @@ class _OrderItemState extends State<OrderItem> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // Đóng dialog
+                completer.complete(false); // Trả về giá trị false
               },
               child: Text('Không'),
             ),
             TextButton(
               onPressed: () {
-                cancelService.CanCelOrder(
-                    context: context, id: widget.hotel.id, status: "cancelled");
-
+                // Thực hiện hành động huỷ đặt phòng ở đây
                 Navigator.pop(context); // Đóng dialog
-                Navigator.pop(context); // Trở về màn hình trước đó
+                completer.complete(true); // Trả về giá trị true
               },
               child: Text('Có'),
             ),
@@ -42,6 +44,8 @@ class _OrderItemState extends State<OrderItem> {
         );
       },
     );
+
+    return completer.future;
   }
 
   final CancelService cancelService = CancelService();
@@ -149,6 +153,7 @@ class _OrderItemState extends State<OrderItem> {
                 right: 10,
                 child: ElevatedButton(
                   onPressed: () {
+
                     cancelService.CanCelOrder(
                         context: context,
                         id: widget.hotel.id,

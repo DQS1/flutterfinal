@@ -12,6 +12,7 @@ import '../../../../../../../../utils/helper.dart';
 import '../../../../../../../../utils/text_styles.dart';
 import '../../../../../../../../utils/themes.dart';
 import '../../../../../../../../widgets/common_card.dart';
+import 'package:intl/intl.dart';
 
 class ProductItem extends StatefulWidget {
   final VoidCallback? onFavorite;
@@ -29,6 +30,8 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
+    String formattedNumber = NumberFormat('#,##0', 'vi_VN')
+        .format(double.parse('${widget.hotel.price_range}'));
     return Container(
       child: Padding(
         padding: EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 16),
@@ -142,12 +145,12 @@ class _ProductItemState extends State<ProductItem> {
                                               CrossAxisAlignment.end,
                                           children: <Widget>[
                                             Text(
-                                              '\$190',
-                                              // '${widget.hotel.price_range}',
+                                              // '\$190',
+                                              '${formattedNumber}',
                                               textAlign: TextAlign.left,
                                               style: TextStyles(context)
                                                   .getBoldStyle()
-                                                  .copyWith(fontSize: 22),
+                                                  .copyWith(fontSize: 15),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.all(0),

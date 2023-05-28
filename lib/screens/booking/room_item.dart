@@ -20,7 +20,7 @@ class _CartItemState extends State<RoomItem> {
     final uniqueRooms = widget.hotel!.rooms.toSet().toList();
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 700,
+      height: 600,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: uniqueRooms.length,

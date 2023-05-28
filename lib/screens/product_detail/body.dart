@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatelessWidget {
   final Hotel hotel;
@@ -22,6 +23,8 @@ class Body extends StatelessWidget {
         throw 'Could not launch $url';
       }
     }
+    String formattedNumber = NumberFormat('#,##0', 'vi_VN')
+        .format(double.parse('${hotel.price_range}'));
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -126,7 +129,7 @@ class Body extends StatelessWidget {
                           Column(
                             children: <Widget>[
                               Text(
-                                "\$ ${hotel.price_range}",
+                                "\$ ${formattedNumber}",
                                 style: TextStyle(
                                     color: Colors.purple,
                                     fontWeight: FontWeight.bold,

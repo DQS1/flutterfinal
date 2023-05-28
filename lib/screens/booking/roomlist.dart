@@ -9,6 +9,8 @@ import '../../utils/helper.dart';
 import '../../utils/text_styles.dart';
 import '../../widgets/common_button.dart';
 import 'showmodal_booking.dart';
+import 'package:intl/intl.dart';
+
 
 class RoomItem2 extends StatelessWidget {
   final Map<String, dynamic> room;
@@ -23,7 +25,8 @@ class RoomItem2 extends StatelessWidget {
         price: room['price'] ?? 0.0,
         quantity: room['quantity'] ?? 1,
         imageRoom: room['imageRoom']);
-
+    String formattedNumber = NumberFormat('#,##0', 'vi_VN')
+        .format(double.parse('${roomObject.price}'));
     return Padding(
       padding: const EdgeInsets.only(),
       child: Stack(
@@ -92,7 +95,7 @@ class RoomItem2 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '${roomObject.price}',
+                          '${formattedNumber}',
                           textAlign: TextAlign.left,
                           style: TextStyles(context)
                               .getBoldStyle()
