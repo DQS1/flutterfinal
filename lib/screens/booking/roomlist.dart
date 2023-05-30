@@ -84,7 +84,7 @@ class RoomItem2 extends StatelessWidget {
                               child: Text(
                                 "Book now",
                                 textAlign: TextAlign.center,
-                                style: TextStyles(context).getRegularStyle(),
+                                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
                               ),
                             ),
                           ),

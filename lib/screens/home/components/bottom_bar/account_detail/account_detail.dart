@@ -5,6 +5,7 @@ import 'package:flutterfinal/screens/home/components/bottom_bar/account_detail/a
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfinal/screens/login/login_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AccountDetail extends StatefulWidget {
   const AccountDetail({Key? key}) : super(key: key);
@@ -41,7 +42,8 @@ class _AccountDetailState extends State<AccountDetail> {
   Widget build(BuildContext context) {
     final String rank;
     final email = Provider.of<UserProvider>(context, listen: false).user.email;
-    final point = Provider.of<UserProvider>(context, listen: false).user.customerPoints;
+    final point =
+        Provider.of<UserProvider>(context, listen: false).user.customerPoints;
 
     return Form(
       child: Form(
@@ -50,95 +52,143 @@ class _AccountDetailState extends State<AccountDetail> {
           padding: const EdgeInsets.all(10.10),
           child: Column(
             children: [
-              Text(email ?? ''),
-              Text(point! > 40 ? "Vàng" : "Đồng"),
-
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 4, color: Colors.white),
+                          boxShadow: [
+                            BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.1))
+                          ],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                'https://cdn.pixabay.com/photo/2015/11/26/00/14/woman-1063100_1280.jpg'),
+                          )),
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 4,
+                              color: Colors.white,
+                            ),
+                            color: Colors.blue,
+                          ),
+                          child: GestureDetector(
+                            onTap: () => {
+                            Navigator.pushNamedAndRemoveUntil(
+                            context, LoginScreen.routeName, (route) => false)
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ))
+                  ],
+                ),
+              ),
+              Text(
+                email ?? '',
+                style: GoogleFonts.notoSansJavanese(
+                    fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                point! > 40 ? "Rank: Vàng" : "Rank: Đồng",
+                style: GoogleFonts.notoSansJavanese(
+                    fontSize: 16, fontWeight: FontWeight.w500),
+              ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               emailTextFormField(),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               passwordTextFormField(),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               confirmTextFormField(),
-
-             Padding(
-             padding:const EdgeInsets.all(30.10) ,
-               child:  Row(
-
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   SizedBox(
-                     height: 50,
-                     width: 150,
-                     child: ElevatedButton(
-                       onPressed: () {
-                         updateInfomation();
-                       },
-                       style: ElevatedButton.styleFrom(
-                         shape: RoundedRectangleBorder(
-                           borderRadius: BorderRadius.circular(10),
-                         ),
-                         backgroundColor: Colors.blue,
-                       ),
-                       child: const Text(
-                         "Lưu thông tin",
-                         style: TextStyle(
-                             fontSize: 18,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.white),
-                       ),
-                     ),
-                   ),
-                   SizedBox(width: 10.0), // Thêm margin giữa các SizedBox
-                   SizedBox(
-                     height: 50,
-                     width: 10,
-
-
-                       child: Container(
-                         height: 0,
-                         width: 0,
-                         color: Colors.white,
-                       ),
-                       // Nút thứ hai
-
-                   ),
-                   const SizedBox(
-                     height: 30,
-                   ),
-                   SizedBox(
-                     height: 50,
-                     width: 150,
-                     child: ElevatedButton(
-                       onPressed: () {
-                         Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-                       },
-                       style: ElevatedButton.styleFrom(
-                         shape: RoundedRectangleBorder(
-                           borderRadius: BorderRadius.circular(10),
-                         ),
-                         backgroundColor: Colors.blue,
-                       ),
-                       child: const Text(
-                         "Log out",
-                         style: TextStyle(
-                             fontSize: 18,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.white),
-                       ),
-                     ),
-                   ),
-                 ],
-               ),
-             ),
-
-              const SizedBox(
-                height: 30,
+              Padding(
+                padding: const EdgeInsets.all(30.10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                      width: 140,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          updateInfomation();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: Colors.blue,
+                        ),
+                        child: const Text(
+                          "Lưu thông tin",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10.0), // Thêm margin giữa các SizedBox
+                    SizedBox(
+                      height: 50,
+                      width: 10,
+                      child: Container(
+                        height: 0,
+                        width: 0,
+                        color: Colors.white,
+                      ),
+                      // Nút thứ hai
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: 140,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, LoginScreen.routeName, (route) => false);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: Colors.blue,
+                        ),
+                        child: const Text(
+                          "Log out",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -189,6 +239,7 @@ class _AccountDetailState extends State<AccountDetail> {
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
+        labelText: 'Name',
         border: OutlineInputBorder(),
         hintText: "Enter your Name",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -204,14 +255,15 @@ class _AccountDetailState extends State<AccountDetail> {
   }
 
   TextFormField passwordTextFormField() {
-
     return TextFormField(
       key: _passKey,
       controller: _passwordController,
       obscureText: true,
+
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
+          labelText: 'Password',
           hintText: "Enter your password",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.lock_outline)),
@@ -227,6 +279,7 @@ class _AccountDetailState extends State<AccountDetail> {
       obscureText: true,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
+          labelText: 'Re-enter Password',
           border: OutlineInputBorder(),
           hintText: "Re-enter your password",
           floatingLabelBehavior: FloatingLabelBehavior.always,

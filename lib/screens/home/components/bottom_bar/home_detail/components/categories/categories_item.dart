@@ -113,7 +113,8 @@ class _CategoriesItem extends State<CateItem> {
                                 'Khách sạn ${widget.categories.star}',
                                 style:
                                 TextStyles(context).getBoldStyle().copyWith(
-                                  fontSize: 18,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
                                   color: AppTheme.whiteColor,
                                 ),
                               ),
@@ -132,5 +133,4 @@ class _CategoriesItem extends State<CateItem> {
       )
     );
   }
-
 }

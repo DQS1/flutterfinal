@@ -83,7 +83,7 @@ class _OrderItemState extends State<OrderItem> {
                         contentPadding: EdgeInsets.all(10),
                         leading: Container(
                           width: 100,
-                          height: 100,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
@@ -103,18 +103,15 @@ class _OrderItemState extends State<OrderItem> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '${widget.hotel.roomType}',
-                              style: TextStyle(fontSize: 16),
+                            SizedBox(
+                              height: 10,
                             ),
-                            SizedBox(height: 5),
                             Row(
                               children: [
                                 Text(
                                   'Khách sạn ${widget.hotel.status}',
                                   style: TextStyle(fontSize: 16),
                                 ),
-                                Icon(Icons.star, color: Colors.yellow),
                                 SizedBox(width: 5),
                               ],
                             ),
@@ -135,31 +132,32 @@ class _OrderItemState extends State<OrderItem> {
         ),
         widget.hotel.status == "cancelled"
             ? Positioned(
-                top: 50,
+                top: 30,
                 right: 10,
                 child: ElevatedButton(
                   onPressed: () {
                     // Xử lý sự kiện khi nhấn nút "Huỷ"
                   },
                   style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all<Size>(Size(85, 40)),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue),
                   ),
-                  child: Text('Đã hủy '),
+                  child: Text('Đã hủy'),
                 ),
               )
             : Positioned(
-                top: 50,
+                top: 30,
                 right: 10,
                 child: ElevatedButton(
                   onPressed: () {
-
                     cancelService.CanCelOrder(
                         context: context,
                         id: widget.hotel.id,
                         status: "cancelled");
                   },
                   style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.resolveWith((states) => Size(50,40)),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.red),
                   ),

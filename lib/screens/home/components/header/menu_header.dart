@@ -7,16 +7,17 @@ class MenuHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height:60,
+      height: 60,
       alignment: Alignment.centerLeft,
       decoration: const BoxDecoration(color: Colors.blue),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            const Expanded(
+             Expanded(
                 child: Text(
-              "Thông tin ",
+              "Thông tin tài khoản",
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

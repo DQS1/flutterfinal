@@ -34,6 +34,9 @@ class _CategoriesStoreState extends State<CategoriesStore> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: const [
                 Expanded(
@@ -67,10 +70,10 @@ class _CategoriesStoreState extends State<CategoriesStore> {
           ],
         ),
       ),
-
     );
   }
 }
+
 class HotelListArguments {
   final Hotel hotel;
   HotelListArguments({required this.hotel});

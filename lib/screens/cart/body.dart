@@ -41,7 +41,8 @@ class _BodyState extends State<Body> {
         },
         child: const Icon(Icons.arrow_back_ios),
       ),
-      title: const Text("Khách sạn }"),
+      centerTitle:true ,
+        title: const Text("Khách sạn ") ,
     ),
       body: Container(
         width: MediaQuery.of(context).size.width,

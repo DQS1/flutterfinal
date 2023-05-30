@@ -33,6 +33,7 @@ class _BodyState extends State<Body1> {
           },
           child: const Icon(Icons.arrow_back_ios),
         ),
+        centerTitle: true,
         title: const Text("Booking"),
       ),
       body: Container(

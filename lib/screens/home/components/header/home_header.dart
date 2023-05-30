@@ -12,18 +12,24 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: 0, right: 0, top: 0,
+      left: 0,
+      right: 0,
+      top: MediaQuery.of(context).padding.top,
       child: CommonCard(
         radius: 36,
-        child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(38)),
-          onTap: () {
-            Navigator.pushNamed(context, SearchScreen.routeName);
-          },
-          child: CommonSearchBar(
-            iconData: FontAwesomeIcons.search,
-            enabled: false,
-            text: "where are you going",
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(38) ,border: Border.all(  color: Colors.blue)),
+          child: InkWell(
+            borderRadius: BorderRadius.all(Radius.circular(38)),
+            onTap: () {
+              Navigator.pushNamed(context, SearchScreen.routeName);
+            },
+            child: CommonSearchBar(
+              iconData: FontAwesomeIcons.search,
+              enabled: false,
+              text: "Where are you going",
+            ),
+
           ),
         ),
       ),

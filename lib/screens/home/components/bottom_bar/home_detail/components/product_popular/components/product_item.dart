@@ -72,11 +72,15 @@ class _ProductItemState extends State<ProductItem> {
                                 '${widget.hotel.name}',
                                 maxLines: 2,
                                 textAlign: TextAlign.left,
-                                style:
-                                    TextStyles(context).getBoldStyle().copyWith(
-                                          fontSize: 16,
-                                        ),
+                                style: TextStyles(context)
+                                    .getBoldStyle()
+                                    .copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
                                 overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 6,
                               ),
                               Text(
                                 'Khách sạn ${widget.hotel.star}',
@@ -183,9 +187,10 @@ class _ProductItemState extends State<ProductItem> {
                       splashColor:
                           Theme.of(context).primaryColor.withOpacity(0.1),
                       onTap: () {
-                        Navigator.pushNamed(context, ProductDetailScreen.routeName,
+                        Navigator.pushNamed(
+                            context, ProductDetailScreen.routeName,
                             arguments:
-                            ProductDetailsArguments(hotel: widget.hotel));
+                                ProductDetailsArguments(hotel: widget.hotel));
                       },
                     ),
                   )

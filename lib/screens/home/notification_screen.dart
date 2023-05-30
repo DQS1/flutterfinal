@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfinal/models/bookingmodel.dart';
+import '../../widgets/common_card.dart';
+import '../../widgets/common_search_bar.dart';
+import '../search/search_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'noti_services.dart';
 import 'order_item.dart';
 
@@ -44,17 +48,42 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ? Center(
         child: CircularProgressIndicator(),
       )
-          : Container(
-        child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          primary: false,
-          itemCount: products.length,
-          itemBuilder: (context, index) {
-            return OrderItem(
-              hotel: products[index],
-            );
+          : ListView(
+        children: [
+          // serachUI(),
+          Container(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              primary: false,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return OrderItem(
+                  hotel: products[index],
+                );
+              },
+            ),
+          ),
+        ],
+      )
+    );
+  }
+
+  Widget serachUI() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
+      child: CommonCard(
+        radius: 36,
+        child: InkWell(
+          borderRadius: BorderRadius.all(Radius.circular(38)),
+          onTap: () {
+            Navigator.pushNamed(context, SearchScreen.routeName);
           },
+          child: CommonSearchBar(
+            iconData: FontAwesomeIcons.search,
+            enabled: false,
+            text: "where are you going",
+          ),
         ),
       ),
     );

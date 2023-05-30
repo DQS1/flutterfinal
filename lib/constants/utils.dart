@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Utils {
-  static String url = 'http://192.168.234.1:5000';
+  static String url = 'http://192.168.1.6:5000';
 
 
 

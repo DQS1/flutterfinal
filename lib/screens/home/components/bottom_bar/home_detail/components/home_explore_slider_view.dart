@@ -32,17 +32,17 @@ class _HomeExploreSliderViewState extends State<HomeExploreSliderView> {
   void initState() {
     pageViewModelData.add(PageViewData(
       titleText: 'cape Town',
-      subText: 'five_star',
+      subText: 'five star',
       assetsImage: Localfiles.explore_2,
     ));
     pageViewModelData.add(PageViewData(
-      titleText: 'find_best_deals',
-      subText: 'five_star',
+      titleText: 'find best deals',
+      subText: 'five star',
       assetsImage: Localfiles.explore_1,
     ));
     pageViewModelData.add(PageViewData(
-      titleText: 'find_best_deals',
-      subText: 'five_star',
+      titleText: 'find best deals',
+      subText: 'five star',
       assetsImage: Localfiles.explore_3,
     ));
 
@@ -146,7 +146,7 @@ class PagePopup extends StatelessWidget {
               children: <Widget>[
                 Container(
                   child: Text(
-                    AppLocalizations(context).of(imageData.titleText),
+                    "AppLocalizations(context).of(imageData.titleText)",
                     textAlign: TextAlign.left,
                     style: TextStyles(context)
                         .getTitleStyle()

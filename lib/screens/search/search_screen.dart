@@ -9,7 +9,6 @@ class SearchScreen extends StatefulWidget {
 
   const SearchScreen({Key? key}) : super(key: key);
 
-
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -102,15 +101,27 @@ class _SearchScreenState extends State<SearchScreen> {
               itemBuilder: (BuildContext context, int index) {
                 final product = searchResults[index];
                 return ListTile(
-                  leading: Image.network(
-                    product.image_url ?? '',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
+                  horizontalTitleGap: 15,
+                  leading: Container(
+                    height: 220,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        product.image_url ?? '',
+                        width: 100,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  title: Text(product.name),
-                  subtitle: Text(product.description ?? ''),
-                  trailing: Text(product.price_range!),
+                  title: Text(
+                    product.name,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                  subtitle:
+                      Text(product.address, style: TextStyle(fontSize: 16)),
+                  trailing: Text(product.price_range!,
+                      style: TextStyle(fontSize: 16)),
                   onTap: () {
                     Navigator.pushNamed(context, ProductDetailScreen.routeName,
                         arguments: ProductDetailsArguments(hotel: product));
