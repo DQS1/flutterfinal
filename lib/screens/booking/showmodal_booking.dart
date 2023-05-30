@@ -37,23 +37,25 @@ class _BookHotelFormState extends State<BookHotelForm> {
     if (_checkInDate != null && _checkOutDate != null) {
       final userPoint = Provider.of<UserProvider>(context, listen: false).user.customerPoints;
       final difference = _checkOutDate!.difference(_checkInDate!);
-      if(userPoint! >30)
-        {
+      // if(userPoint! >30)
+      //   {
           _totalPrice = difference.inDays * widget.pricePerNight * _quantity;
           _final =(( difference.inDays * widget.pricePerNight * _quantity)*0.95);
           _reduce=(( difference.inDays * widget.pricePerNight * _quantity)*0.05);
-        }
-      if(_totalPrice>0 && _totalPrice<1000000){
-        _point=1;
-      }
-      if(_totalPrice>1000000 && _totalPrice<5000000)
-        {
-          _point=5;
-        }
-      if( _totalPrice>5000000)
-        {
-          _point=10;
-        }
+        // }
+      // if(_totalPrice>0 && _totalPrice<1000000){
+      //   _point=1;
+      // }
+      // print(_quantity);
+
+      // if(_totalPrice>1000000 && _totalPrice<5000000)
+      //   {
+      //     _point=5;
+      //   }
+      // if( _totalPrice>5000000)
+      //   {
+      //     _point=10;
+      //   }
     }
   }
 
@@ -194,11 +196,10 @@ class _BookHotelFormState extends State<BookHotelForm> {
                 ],
               ),
               SizedBox(height: 16.0),
-              Text('Total Price: ${_totalPrice.toStringAsFixed(2)}'),
+              Text('Total Price: ${_totalPrice}'),
 
-              Text('Giảm : ${_reduce.toStringAsFixed(2)}'),
-              Text('Tiền phải trả: ${_final.toStringAsFixed(2)}'),
-              SizedBox(height: 16.0),
+              Text('Giảm : ${_reduce}'),
+              Text('Tiền phải trả: ${_final}'),
               ElevatedButton(
                 onPressed: () async {
                   // TODO: Handle booking logic

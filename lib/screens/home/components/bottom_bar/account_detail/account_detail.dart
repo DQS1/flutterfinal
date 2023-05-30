@@ -112,15 +112,15 @@ class _AccountDetailState extends State<AccountDetail> {
                     fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               emailTextFormField(),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               passwordTextFormField(),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               confirmTextFormField(),
               Padding(
@@ -190,41 +190,7 @@ class _AccountDetailState extends State<AccountDetail> {
                   ],
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF5F6F9),
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset("assets/icons/facebook-2.svg"),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      margin: const EdgeInsets.only(left: 10, right: 10),
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                          color: Color(0xFFF5F6F9), shape: BoxShape.circle),
-                      child: SvgPicture.asset("assets/icons/google-icon.svg"),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                          color: Color(0xFFF5F6F9), shape: BoxShape.circle),
-                      child: SvgPicture.asset("assets/icons/twitter.svg"),
-                    ),
-                  ],
-                ),
-              )
+
             ],
           ),
         ),
