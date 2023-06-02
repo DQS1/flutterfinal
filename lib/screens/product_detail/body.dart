@@ -25,6 +25,12 @@ class Body extends StatelessWidget {
     }
     String formattedNumber = NumberFormat('#,##0', 'vi_VN')
         .format(double.parse('${hotel.price_range}'));
+    String toado1Str = hotel.toado1.toString();
+    double toado1 = double.parse(toado1Str);
+    String toado2Str = hotel.toado2.toString();
+    double toado2 = double.parse(toado2Str);
+    print(toado1);
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -192,7 +198,7 @@ class Body extends StatelessWidget {
                   height: 300,
                   child: FlutterMap(
                     options: MapOptions(
-                      center: LatLng(10.76971413383295, 106.66640733453406),
+                      center: LatLng( toado1, toado2),
                       zoom: 16.0,
                       maxZoom: 18.0,
                       minZoom: 3.0,
@@ -208,7 +214,7 @@ class Body extends StatelessWidget {
                           Marker(
                             width: 80.0,
                             height: 80.0,
-                            point: LatLng(10.76971413383295, 106.66640733453406),
+                            point:LatLng(toado1, toado2),
                             builder: (ctx) => Container(
                               child: Icon(
                                 Icons.location_on,

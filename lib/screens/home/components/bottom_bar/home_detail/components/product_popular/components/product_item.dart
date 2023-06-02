@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfinal/models/hotel.dart';
 import 'package:flutterfinal/models/products.dart';
+import 'package:flutterfinal/screens/product_detail/components/add_favorite.dart';
 import 'package:flutterfinal/screens/product_detail/product_detali_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,12 +16,14 @@ import '../../../../../../../../utils/text_styles.dart';
 import '../../../../../../../../utils/themes.dart';
 import '../../../../../../../../widgets/common_card.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductItem extends StatefulWidget {
   final VoidCallback? onFavorite;
   final Hotel hotel;
+  final int? index;
 
-  const ProductItem({Key? key, required this.hotel, this.onFavorite})
+  const ProductItem({Key? key, required this.hotel, this.onFavorite, this.index})
       : super(key: key);
 
   @override
@@ -27,6 +32,20 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   bool _isFavorite = false;
+  late SharedPreferences _prefs;
+
+  List<Hotel> _favoriteProducts = [];
+
+  Future<void> removeFavorite(int index) async {
+    _favoriteProducts.removeAt(index);
+    List<String>? favoriteJsonList =
+    _favoriteProducts.map((favorite) => jsonEncode(favorite.toMap())).cast<String>().toList();
+    await _prefs.setStringList('favorite', favoriteJsonList);
+    print(_prefs);
+
+    setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -156,15 +175,18 @@ class _ProductItemState extends State<ProductItem> {
                                                   .getBoldStyle()
                                                   .copyWith(fontSize: 15),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsets.all(0),
-                                              child: Text(
-                                                "/per_night",
-                                                style: TextStyles(context)
-                                                    .getDescriptionStyle()
-                                                    .copyWith(
-                                                      fontSize: 14,
-                                                    ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                AddProductToFavorite(hotel: widget.hotel,);
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(0),
+                                                child: Text(
+                                                  "/per_night",
+                                                  style: TextStyles(context)
+                                                      .getDescriptionStyle()
+                                                      .copyWith(fontSize: 14),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -193,7 +215,8 @@ class _ProductItemState extends State<ProductItem> {
                                 ProductDetailsArguments(hotel: widget.hotel));
                       },
                     ),
-                  )
+                  ),
+
                 ],
               ),
             ),

@@ -24,6 +24,7 @@ class BookingRoomService {
     required String status,
     required num quantity,
     required num point,
+    required String hotelName,
     // required String userID,
   }) async {
     try {
@@ -39,6 +40,7 @@ class BookingRoomService {
           'status': status,
           'quantity':quantity,
           'point':point,
+          'hotelName':hotelName
           // 'userID':userID
 
         }),

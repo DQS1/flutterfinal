@@ -40,6 +40,13 @@ class _FavoriteDetailState extends State<FavoriteDetail> {
 
     setState(() {});
   }
+  Future<void> removeFavorite(int index) async {
+    _favoriteProducts.removeAt(index);
+    List<String> favoriteJsonList =
+    _favoriteProducts.map((favorite) => jsonEncode(favorite.toMap())).toList();
+    await _prefs.setStringList('favorite', favoriteJsonList);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +58,18 @@ class _FavoriteDetailState extends State<FavoriteDetail> {
             child: _favoriteProducts.isEmpty
                 ? Center(child: Text('No favorites yet'))
                 : Container(
+
+
                     child: Container(
+
+
                     child: ListView.builder(
+
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       primary: false,
                       itemCount: _favoriteProducts!.length,
+
                       itemBuilder: (context, index) {
                         return ProductItem(
                           hotel: _favoriteProducts[index],

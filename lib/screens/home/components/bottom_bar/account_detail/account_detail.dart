@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutterfinal/constants/utils.dart';
 import 'package:flutterfinal/providers/user_provider.dart';
@@ -6,7 +9,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfinal/screens/login/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io';
+import 'package:permission_handler/permission_handler.dart';
 
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 class AccountDetail extends StatefulWidget {
   const AccountDetail({Key? key}) : super(key: key);
 
@@ -21,6 +28,68 @@ class _AccountDetailState extends State<AccountDetail> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmController = TextEditingController();
+  Uint8List? _image;
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+
+    setState(() {
+      image = img;
+    });
+  }
+
+
+  //show popup dialog
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Please choose media to select'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('From Gallery'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('From Camera'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+
 
   @override
   void dispose() {
@@ -33,10 +102,11 @@ class _AccountDetailState extends State<AccountDetail> {
   void updateInfomation() {
     accountDetailService.updateInfo(
       context: context,
-      username: _emailController.text,
+      email: _emailController.text,
       password: _passwordController.text,
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +115,7 @@ class _AccountDetailState extends State<AccountDetail> {
     final point =
         Provider.of<UserProvider>(context, listen: false).user.customerPoints;
 
+
     return Form(
       child: Form(
         key: _accountFormKey,
@@ -52,62 +123,49 @@ class _AccountDetailState extends State<AccountDetail> {
           padding: const EdgeInsets.all(10.10),
           child: Column(
             children: [
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 4, color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                'https://cdn.pixabay.com/photo/2015/11/26/00/14/woman-1063100_1280.jpg'),
-                          )),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Colors.white,
-                            ),
-                            color: Colors.blue,
-                          ),
-                          child: GestureDetector(
-                            onTap: () => {
-                            Navigator.pushNamedAndRemoveUntil(
-                            context, LoginScreen.routeName, (route) => false)
-                            },
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ))
-                  ],
-                ),
+          Center(
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  myAlert();
+                },
+                child: Text('Upload Photo'),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              //if image not null show the image
+              //if image null show text
+              image != null
+                  ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CircleAvatar(
+                  child: Image.file(
+                    //to show image, you type like this.
+                    File(image!.path),
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                  ),
+                ),
+              )
+                  : Text(
+                "No Image",
+                style: TextStyle(fontSize: 20),
+              )
+            ],
+          ),
+        ),
+
               Text(
                 email ?? '',
                 style: GoogleFonts.notoSansJavanese(
                     fontSize: 20, fontWeight: FontWeight.w500),
               ),
               Text(
-                point! > 40 ? "Rank: Vàng" : "Rank: Đồng",
+                point! <= 30 ? "Rank: Đồng"  : point! > 30 &&  point! <= 100  ? " Rank : Vàng" : point! > 100 &&  point! <= 200 ? " Rank : Bạch kim" :point! > 200  ? " Rank : Kim cương" : "" ,
                 style: GoogleFonts.notoSansJavanese(
                     fontSize: 16, fontWeight: FontWeight.w500),
               ),
@@ -134,6 +192,8 @@ class _AccountDetailState extends State<AccountDetail> {
                       child: ElevatedButton(
                         onPressed: () {
                           updateInfomation();
+
+
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

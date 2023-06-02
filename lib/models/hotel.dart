@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'rooms.dart';
 class Hotel {
   String id;
@@ -8,6 +9,9 @@ class Hotel {
   String image_url;
   String price_range;
   num? star;
+  String? toado1;
+  String? toado2;
+
   // List<dynamic> amenities;
   List<Map<String, dynamic>> rooms;
   Hotel(
@@ -18,6 +22,8 @@ class Hotel {
         required this.price_range,
         required this.address,
         this.star,
+        this.toado1,
+        this.toado2,
        // required this.amenities,
         required this.rooms
 
@@ -32,8 +38,12 @@ class Hotel {
       'image_url': image_url,
       'price_range': price_range,
       '_id': id,
+      'toado1':toado1,
+      'toado2':toado2,
 
-    'rooms':  rooms
+
+
+      'rooms':  rooms
           ?.map((x) => {
         'roomName': x['roomName'] ?? "rooms",
         'price': x['price'] ?? 0.0,
@@ -54,6 +64,8 @@ class Hotel {
       star: map['star'] ?? 3,
 
       address: map['address'] ??'',
+      toado1: map['toado1'],
+      toado2: map['toado2'],
       rooms: List<Map<String, dynamic>>.from(map['rooms']?.map((x) => {
         'roomName': x['roomName'] ?? '',
         'quantity': x['quantity'] ?? 1,

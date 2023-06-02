@@ -18,6 +18,9 @@ class CancelService {
     required BuildContext context,
     required String id,
     required String status,
+    required String roomType,
+    required num quantityOrder,
+    required String hotelName
   }) async {
     try {
       http.Response res = await http.post(
@@ -25,6 +28,10 @@ class CancelService {
         body: jsonEncode({
           '_id': id,
           'status': status,
+          'roomType':roomType,
+          'quantityOrder':quantityOrder,
+          'hotelName':hotelName
+
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

@@ -69,6 +69,9 @@ dev_dependencies:
   cookie_jar: ^4.0.1
   flutter_bcrypt: ^1.0.8
   cached_network_image: ^3.2.3
+  dio: ^4.0.4
+  image_picker: ^0.8.4+4
+  permission_handler: ^8.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -16,9 +16,10 @@ class OrderItem extends StatefulWidget {
 }
 
 class _OrderItemState extends State<OrderItem> {
-  Future<bool> _showCancelConfirmationDialog() {
+
+  bool isOk=false;Future<bool> _showCancelConfirmationDialog() async {
     Completer<bool> completer = Completer<bool>();
-    showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -34,7 +35,6 @@ class _OrderItemState extends State<OrderItem> {
             ),
             TextButton(
               onPressed: () {
-                // Thực hiện hành động huỷ đặt phòng ở đây
                 Navigator.pop(context); // Đóng dialog
                 completer.complete(true); // Trả về giá trị true
               },
@@ -109,7 +109,7 @@ class _OrderItemState extends State<OrderItem> {
                             Row(
                               children: [
                                 Text(
-                                  'Khách sạn ${widget.hotel.status}',
+                                  'Khách sạn ${widget.hotel.hotelName}',
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 SizedBox(width: 5),
@@ -118,6 +118,11 @@ class _OrderItemState extends State<OrderItem> {
                             SizedBox(height: 5),
                             Text(
                               'Giá: ${formattedNumber}',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Trạng thái: ${widget.hotel.status}',
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
@@ -150,11 +155,25 @@ class _OrderItemState extends State<OrderItem> {
                 top: 30,
                 right: 10,
                 child: ElevatedButton(
-                  onPressed: () {
-                    cancelService.CanCelOrder(
-                        context: context,
-                        id: widget.hotel.id,
-                        status: "cancelled");
+                  onPressed: () async{
+
+                    print(isOk);
+                     bool result = await _showCancelConfirmationDialog();
+                     if (result) {
+                       cancelService.CanCelOrder(
+                           context: context,
+                           id: widget.hotel.id,
+                           quantityOrder: widget.hotel.quantity,
+                           roomType: widget.hotel.roomType,
+                           hotelName: widget.hotel.hotelName,
+                           status: "cancelled");
+                     }
+
+                   else{
+                     setState(() {
+                       isOk=true;
+                     });
+                   }
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.resolveWith((states) => Size(50,40)),

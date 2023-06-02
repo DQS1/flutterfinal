@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutterfinal/constants/error_handling.dart';
 import 'package:flutterfinal/constants/utils.dart';
@@ -11,7 +12,7 @@ class AccountDetailService {
   String uri = Utils.url;
   void updateInfo({
     required BuildContext context,
-    required String username,
+    required String email,
     required String password,
   }) async {
     final userId = Provider.of<UserProvider>(context, listen: false).user.id;
@@ -24,7 +25,7 @@ class AccountDetailService {
     try {
       User user = User(
           id: userId,
-          name: username,
+          email: email,
           password: password,
           // token: '',
           );
@@ -47,7 +48,8 @@ class AccountDetailService {
             context,
             'Thay đổi thông tin thành công',
           );
-        },
+        }
+        ,
       );
     } catch (e) {
       Utils.showSnackBar(context, e.toString());

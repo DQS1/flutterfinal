@@ -13,8 +13,9 @@ import 'package:flutterfinal/providers/user_provider.dart';
 class BookHotelForm extends StatefulWidget {
   final double pricePerNight;
   final String roomName;
+  final String hotelName;
 
-  BookHotelForm({Key? key, required this.pricePerNight,required this.roomName}) : super(key: key);
+  BookHotelForm({Key? key, required this.pricePerNight,required this.roomName,required this.hotelName}) : super(key: key);
 
   @override
   _BookHotelFormState createState() => _BookHotelFormState();
@@ -27,6 +28,7 @@ class _BookHotelFormState extends State<BookHotelForm> {
   double _totalPrice = 0;
   double _reduce=0;
   double _final=0;
+  double _price=0;
 
   int _point = 1;
 
@@ -37,25 +39,46 @@ class _BookHotelFormState extends State<BookHotelForm> {
     if (_checkInDate != null && _checkOutDate != null) {
       final userPoint = Provider.of<UserProvider>(context, listen: false).user.customerPoints;
       final difference = _checkOutDate!.difference(_checkInDate!);
-      // if(userPoint! >30)
-      //   {
+      _price=difference.inDays * widget.pricePerNight * _quantity;
+      if(_totalPrice>0 && _totalPrice<1000000){
+        _point=1;
+      }
+      print(_quantity);
+
+      if(_totalPrice>1000000 && _totalPrice<5000000)
+      {
+        _point=5;
+      }
+      if( _totalPrice>5000000)
+      {
+        _point=10;
+      }
+      if(userPoint!<=30)
+      {
+        _totalPrice = difference.inDays * widget.pricePerNight * _quantity;
+        _final =(( difference.inDays * widget.pricePerNight * _quantity));
+        _reduce=0;
+      }
+      if(userPoint! >30 && userPoint!<=100)
+        {
           _totalPrice = difference.inDays * widget.pricePerNight * _quantity;
           _final =(( difference.inDays * widget.pricePerNight * _quantity)*0.95);
           _reduce=(( difference.inDays * widget.pricePerNight * _quantity)*0.05);
-        // }
-      // if(_totalPrice>0 && _totalPrice<1000000){
-      //   _point=1;
-      // }
-      // print(_quantity);
+        }
 
-      // if(_totalPrice>1000000 && _totalPrice<5000000)
-      //   {
-      //     _point=5;
-      //   }
-      // if( _totalPrice>5000000)
-      //   {
-      //     _point=10;
-      //   }
+      if(userPoint!>=100 && userPoint!<=200)
+      {
+        _totalPrice = difference.inDays * widget.pricePerNight * _quantity;
+        _final =(( difference.inDays * widget.pricePerNight * _quantity)*0.9);
+        _reduce=(( difference.inDays * widget.pricePerNight * _quantity)*0.10);
+      }
+      if(userPoint!>200 )
+      {
+        _totalPrice = difference.inDays * widget.pricePerNight * _quantity;
+        _final =(( difference.inDays * widget.pricePerNight * _quantity)*0.9);
+        _reduce=(( difference.inDays * widget.pricePerNight * _quantity)*0.10);
+      }
+
     }
   }
 
@@ -216,6 +239,7 @@ class _BookHotelFormState extends State<BookHotelForm> {
                     status: "pending",
                     quantity: _quantity ?? 1,
                     point:_point ,
+                    hotelName: widget.hotelName
                   );
 
                   // Navigator.pop(context);
@@ -233,8 +257,9 @@ class _BookHotelFormState extends State<BookHotelForm> {
 class HotelDetailsScreen extends StatelessWidget {
   final double pricePerNight;
   final String roomName;
+  final String hotelName;
 
-  HotelDetailsScreen({Key? key, required this.pricePerNight,required this.roomName}) : super(key: key);
+  HotelDetailsScreen({Key? key, required this.pricePerNight,required this.roomName,required this.hotelName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -248,7 +273,7 @@ class HotelDetailsScreen extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               builder: (context) {
-                return BookHotelForm(pricePerNight: pricePerNight,roomName: roomName ?? 'Phòng 2 người',);
+                return BookHotelForm(pricePerNight: pricePerNight,roomName: roomName ?? 'Phòng 2 người',hotelName: hotelName ?? "DM",);
               },
             );
           },

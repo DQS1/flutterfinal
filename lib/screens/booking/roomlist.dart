@@ -14,8 +14,9 @@ import 'package:intl/intl.dart';
 
 class RoomItem2 extends StatelessWidget {
   final Map<String, dynamic> room;
+  final String hotelName;
 
-  RoomItem2({Key? key, required this.room}) : super(key: key);
+  RoomItem2({Key? key, required this.room,required this.hotelName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class RoomItem2 extends StatelessWidget {
                               showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
-                                  return BookHotelForm(pricePerNight: roomObject.price!.toDouble(),roomName: roomObject.roomName,);
+                                  return BookHotelForm(pricePerNight: roomObject.price!.toDouble(),roomName: roomObject.roomName,hotelName: hotelName,);
                                 },
                               );
                             },
@@ -117,7 +118,7 @@ class RoomItem2 extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Phòng hai giường',
+                          'Số lượng phòng còn lại ${roomObject.quantity}',
                           // "${widget.roomData.dateTxt}",
                           textAlign: TextAlign.left,
                           style: TextStyles(context).getDescriptionStyle(),

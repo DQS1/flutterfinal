@@ -12,6 +12,7 @@ class BookingModel {
 
   final num quantity;
   final num? point;
+  final String hotelName;
 
 
 
@@ -26,6 +27,7 @@ class BookingModel {
     required this.status,
     required this.quantity,
     this.point,
+    required this.hotelName
 
   });
 
@@ -40,6 +42,7 @@ class BookingModel {
     'status':status,
     'quantity':quantity,
     'point':point,
+    'hotelName':hotelName
   };
 
   factory BookingModel.fromMap(Map<String, dynamic> json) {
@@ -54,6 +57,9 @@ class BookingModel {
       status: json['status'],
         quantity:json['quantity'],
         point:json['point'],
+      hotelName: json[
+        'hotelName'
+      ] ?? "DM"
     );
   }
 

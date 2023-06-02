@@ -32,6 +32,7 @@ class _CartItemState extends State<RoomItem> {
             child: RoomItem2(
               key: ObjectKey(room), // provide a unique key based on the room data
               room: room,
+              hotelName: widget.hotel!.name,
             ),
           );
         },
