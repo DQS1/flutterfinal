@@ -109,7 +109,7 @@ class _OrderItemState extends State<OrderItem> {
                             Row(
                               children: [
                                 Text(
-                                  'Khách sạn ${widget.hotel.hotelName}',
+                                  ' ${widget.hotel.hotelName}',
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 SizedBox(width: 5),

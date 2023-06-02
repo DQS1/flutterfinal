@@ -20,6 +20,13 @@ class _OrderDetailState extends State<OrderDetail> {
     String formattedNumber = NumberFormat('#,##0', 'vi_VN')
         .format(double.parse('${widget.book.price}'));
 
+
+    DateTime dateTime = DateTime.parse(widget.book.checkInDate);
+    String formattedDateCheckIn = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
+    DateTime dateTime2 = DateTime.parse(widget.book.checkOutDate);
+    String formattedDateCheckOut = "${dateTime2.day}/${dateTime2.month}/${dateTime2.year}";
+
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -158,6 +165,18 @@ class _OrderDetailState extends State<OrderDetail> {
                         children: [
                           Expanded(
                             child: Text(
+                              "Khách sạn: ${widget.book?.hotelName}",
+                              textAlign: TextAlign.justify,
+                              style: GoogleFonts.notoSansJavanese(
+                                  fontSize: 18, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
                               "Status: ${widget.book.status}",
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.notoSansJavanese(
@@ -166,6 +185,7 @@ class _OrderDetailState extends State<OrderDetail> {
                           ),
                         ],
                       ),
+
                       Row(
                         children: [
                           Expanded(
@@ -182,7 +202,21 @@ class _OrderDetailState extends State<OrderDetail> {
                         children: [
                           Expanded(
                             child: Text(
-                              "Ngày đặt: ${widget.book.checkInDate} - ${widget.book.checkOutDate}",
+                              "Ngày CheckIn: ${formattedDateCheckIn} ",
+                              textAlign: TextAlign.justify,
+                              softWrap: false,
+                              style: GoogleFonts.notoSansJavanese(
+                                  fontSize: 18, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Ngày CheckOut: ${formattedDateCheckOut} ",
                               textAlign: TextAlign.justify,
                               softWrap: false,
                               style: GoogleFonts.notoSansJavanese(
@@ -206,7 +240,7 @@ class _OrderDetailState extends State<OrderDetail> {
                         children: [
                           Expanded(
                             child: Text(
-                              "Giá tiền phòng:  \$ ${formattedNumber}",
+                              "Giá tiền phòng:   ${formattedNumber} VND",
                               style: GoogleFonts.notoSansJavanese(
                                   color: Colors.purple,
                                   fontWeight: FontWeight.bold,

@@ -38,12 +38,12 @@ class _BookHotelFormState extends State<BookHotelForm> {
   void _calculateTotalPrice() {
     if (_checkInDate != null && _checkOutDate != null) {
       final userPoint = Provider.of<UserProvider>(context, listen: false).user.customerPoints;
+      print(userPoint);
       final difference = _checkOutDate!.difference(_checkInDate!);
       _price=difference.inDays * widget.pricePerNight * _quantity;
       if(_totalPrice>0 && _totalPrice<1000000){
         _point=1;
       }
-      print(_quantity);
 
       if(_totalPrice>1000000 && _totalPrice<5000000)
       {
@@ -226,7 +226,6 @@ class _BookHotelFormState extends State<BookHotelForm> {
               ElevatedButton(
                 onPressed: () async {
                   // TODO: Handle booking logic
-                  print(_totalPrice);
                   bookingRoomService.Booking(
                     context: context,
                     userId: id,

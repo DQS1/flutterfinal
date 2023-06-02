@@ -36,10 +36,11 @@ class Body extends StatelessWidget {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(top: 10),
-            foregroundDecoration: const BoxDecoration(color: Colors.black26),
+            foregroundDecoration: const BoxDecoration(color: Colors.black26,),
             height: 400,
             child: Image(
-              image: NetworkImage(hotel.image_url),
+fit: BoxFit.cover,
+              image: NetworkImage(hotel.image_url,),
             ),
           ),
           SingleChildScrollView(

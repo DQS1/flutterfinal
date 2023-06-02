@@ -112,6 +112,8 @@ class _AccountDetailState extends State<AccountDetail> {
   Widget build(BuildContext context) {
     final String rank;
     final email = Provider.of<UserProvider>(context, listen: false).user.email;
+    final name = Provider.of<UserProvider>(context, listen: false).user.name;
+
     final point =
         Provider.of<UserProvider>(context, listen: false).user.customerPoints;
 
@@ -123,44 +125,15 @@ class _AccountDetailState extends State<AccountDetail> {
           padding: const EdgeInsets.all(10.10),
           child: Column(
             children: [
-          Center(
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  myAlert();
-                },
-                child: Text('Upload Photo'),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //if image not null show the image
-              //if image null show text
-              image != null
-                  ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CircleAvatar(
-                  child: Image.file(
-                    //to show image, you type like this.
-                    File(image!.path),
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                  ),
-                ),
-              )
-                  : Text(
-                "No Image",
-                style: TextStyle(fontSize: 20),
-              )
-            ],
-          ),
-        ),
+
 
               Text(
-                email ?? '',
+                'Tên khách Hàng : ${name}' ?? '',
+                style: GoogleFonts.notoSansJavanese(
+                    fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                'Gmail : ${name}' ?? '',
                 style: GoogleFonts.notoSansJavanese(
                     fontSize: 20, fontWeight: FontWeight.w500),
               ),
@@ -267,7 +240,7 @@ class _AccountDetailState extends State<AccountDetail> {
       decoration: const InputDecoration(
         labelText: 'Name',
         border: OutlineInputBorder(),
-        hintText: "Enter your Name",
+        hintText: "Enter your Gmail",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.email_outlined),
       ),
